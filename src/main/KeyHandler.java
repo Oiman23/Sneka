@@ -12,6 +12,8 @@ public class KeyHandler implements KeyListener {
 		this.down = down;
 		this.left = left;
 		this.right = right;
+
+		down = true;
 	}
 
 	@Override
@@ -26,9 +28,8 @@ public class KeyHandler implements KeyListener {
 		} else if (code == KeyEvent.VK_D) {
 			setKeys(false, false, false, true);
 		}
-
 	}
-
+//test 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub

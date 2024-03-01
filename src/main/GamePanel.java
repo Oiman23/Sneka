@@ -21,17 +21,16 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int size = 42;
 	public final int rows = 16;
 	public final int cols = 16;
-	public final int tileSize = size * rows;
+	public final int screenSize = size * rows;
 
 	public GamePanel() {
-		this.setPreferredSize(new Dimension(tileSize, tileSize));
+		this.setPreferredSize(new Dimension(screenSize, screenSize));
 		this.setBackground(Color.black);
 		this.setFocusable(true);
 		this.addKeyListener(key);
 		this.add(panel);
 		panel.add(label);
-
-		snake = new Snake(this, key);
+		snake = new Snake(this, key, null, null);
 		food = new Food(this, snake);
 		interactions = new Interactions(this, snake, food);
 		updateScore();
@@ -41,7 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
 		thread = new Thread(this);
 		thread.start();
 	}
-
+	
 	@Override
 	public void run() {
 		while (thread != null) {
@@ -61,15 +60,26 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public void update() {
 		snake.update();
-		food.update();
 		interactions.update();
+		Snake pointer = snake.next(); // check the first snake with interactions then the while loop 
+		while(pointer != null) {
+			pointer.update();
+			pointer = pointer.next();
+		}
+		food.update();
 		updateScore();
 //		System.out.println(food.getX() + " " + food.getY() + " " + snake.getX() + ", " + snake.getY());
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		snake.draw(g);
+		Snake pointer = snake;
+		while(pointer !=null) {
+			pointer.draw(g);
+			pointer = pointer.next();
+		}
 		food.draw(g);
 	}
+	
 }
+

@@ -21,14 +21,16 @@ public class Food {
 	}
 
 	public void randomPosition() {
-		randomX = rand.nextInt(panel.cols) * panel.size;
-		randomY = rand.nextInt(panel.rows) * panel.size;
+//		randomX = rand.nextInt(panel.cols) * panel.size;
+//		randomY = rand.nextInt(panel.rows) * panel.size;
+		randomX = rand.nextInt(4) * panel.size;
+		randomY = rand.nextInt(4) * panel.size;
 		x = randomX + (panel.size) / 4;
 		y = randomY + (panel.size) / 4;
 	}
 
 	public void update() {
-		
+
 	}
 
 	public void draw(Graphics g) {
