@@ -29,4 +29,8 @@ public class Interactions {
 	public int getScore() {
 		return score;
 	}
+
+	public boolean checkBoundaries(Entities entities, int x, int y) {
+		return true;
+	}
 }

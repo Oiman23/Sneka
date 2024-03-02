@@ -6,27 +6,28 @@ import java.util.Random;
 
 import main.GamePanel;
 
-public class Food {
+public class Food extends Entities {
 	GamePanel panel;
 	Snake snake;
 	Random rand = new Random();
-	int x, y; // x,y is absolute x,y position in the game
-	int randomX, randomY; // randomX is the x,y coord of the grid it is in
+	int drawX, drawY; // randomX is the x,y coord of the grid it is in
 
 	public Food(GamePanel panel, Snake snake) {
+		super(panel);
 		this.panel = panel;
 		this.snake = snake;
 
 		randomPosition();
 	}
 
+//send request if the randomX/Y is inside the snake in interactions, if it is keep looking for a new position
 	public void randomPosition() {
 //		randomX = rand.nextInt(panel.cols) * panel.size;
 //		randomY = rand.nextInt(panel.rows) * panel.size;
-		randomX = rand.nextInt(4) * panel.size;
-		randomY = rand.nextInt(4) * panel.size;
-		x = randomX + (panel.size) / 4;
-		y = randomY + (panel.size) / 4;
+		x = rand.nextInt(4) * panel.size;
+		y = rand.nextInt(4) * panel.size;
+		drawX = x + (panel.size) / 4;
+		drawY = y + (panel.size) / 4;
 	}
 
 	public void update() {
@@ -35,14 +36,7 @@ public class Food {
 
 	public void draw(Graphics g) {
 		g.setColor(Color.white);
-		g.fillOval(x, y, panel.size / 2, panel.size / 2);
+		g.fillOval(drawX, drawY, panel.size / 2, panel.size / 2);
 	}
 
-	public int getX() {
-		return randomX;
-	}
-
-	public int getY() {
-		return randomY;
-	}
 }

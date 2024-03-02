@@ -7,22 +7,20 @@ import java.util.ArrayList;
 import main.GamePanel;
 import main.KeyHandler;
 
-public class Snake {
+public class Snake extends Entities {
+	ArrayList<Integer> positions = new ArrayList<>();
 	GamePanel panel;
 	KeyHandler key;
 	Snake front;
 	Snake behind;
 	int xP;
 	int yP;
-	int x;
-	int y;
 	int speed;
 
 	public Snake(GamePanel panel, KeyHandler key, Snake front, Snake behind) {
+		super(panel, panel.size, panel.size); // *** Change starting position
 		this.panel = panel;
 		this.key = key;
-		this.x = panel.size;
-		this.y = panel.size;
 		this.speed = panel.size;
 		this.front = front;
 		this.behind = behind;
@@ -51,7 +49,7 @@ public class Snake {
 					}
 				}
 			} else {
-				
+
 				x = front.getXP();
 				y = front.getYP();
 			}
@@ -61,14 +59,6 @@ public class Snake {
 	public void draw(Graphics g) {
 		g.setColor(Color.GREEN);
 		g.fillRect(x, y, panel.size, panel.size);
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public int getY() {
-		return y;
 	}
 
 	public int getXP() {
@@ -86,11 +76,11 @@ public class Snake {
 	public KeyHandler getKey() {
 		return key;
 	}
-	
+
 	public void setBehind(Snake behind) {
 		this.behind = behind;
 	}
-	
+
 	public Snake getFront() {
 		return front;
 	}
