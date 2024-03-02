@@ -2,13 +2,11 @@ package Entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.ArrayList;
 
 import main.GamePanel;
 import main.KeyHandler;
 
 public class Snake extends Entities {
-	ArrayList<Integer> positions = new ArrayList<>();
 	GamePanel panel;
 	KeyHandler key;
 	Snake front;
@@ -18,7 +16,7 @@ public class Snake extends Entities {
 	int speed;
 
 	public Snake(GamePanel panel, KeyHandler key, Snake front, Snake behind) {
-		super(panel, panel.size, panel.size); // *** Change starting position
+		super(panel, panel.size, panel.size); // ]* Change starting position
 		this.panel = panel;
 		this.key = key;
 		this.speed = panel.size;
@@ -48,6 +46,7 @@ public class Snake extends Entities {
 						x += speed;
 					}
 				}
+				panel.getInteractions().updatePositions();
 			} else {
 
 				x = front.getXP();

@@ -4,11 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -77,7 +74,7 @@ public class GamePanel extends JPanel implements Runnable {
 		greyTint.setBackground(new Color(128, 128, 128, 50));
 		greyTint.setBounds(0, 0, screenSize, screenSize);
 		greyTint.setVisible(true);
-		this.add(greyTint);	
+		this.add(greyTint);
 	}
 
 	@Override
@@ -94,13 +91,15 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	public void update() {
-		snake.update();
+		Snake pointer = snake; // check the first snake with interactions then the while loop
+		pointer.update();
 		interactions.update();
-		Snake pointer = snake.next(); // check the first snake with interactions then the while loop
+		pointer = pointer.next();
 		while (pointer != null) {
 			pointer.update();
 			pointer = pointer.next();
 		}
+		interactions.update();
 
 		food.update();
 		updateScore();
@@ -118,6 +117,10 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public void updateScore() {
 		scoreLabel.setText("Score: " + interactions.getScore());
+	}
+
+	public Interactions getInteractions() {
+		return interactions;
 	}
 
 }
