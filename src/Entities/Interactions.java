@@ -38,7 +38,7 @@ public class Interactions {
 
 	public void update() {
 		if (head.getX() == food.getX() && head.getY() == food.getY()) {
-			while (positions.contains(getKey(food.getX(), food.getY()))) {
+			while (positions.contains(getKey(food.getX(), food.getY()))) {	
 				food.randomPosition();
 			}
 

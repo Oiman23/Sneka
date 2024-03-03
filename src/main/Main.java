@@ -10,11 +10,11 @@ public class Main {
 		frame.setResizable(false);
 		frame.setTitle("Snake Game");
 		GamePanel panel = new GamePanel();
+
 		frame.add(panel);
-		
+
 		frame.pack();
 		frame.setVisible(true);
-		
 
 	}
 }

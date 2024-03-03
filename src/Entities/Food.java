@@ -24,8 +24,8 @@ public class Food extends Entities {
 	public void randomPosition() {
 //		randomX = rand.nextInt(panel.cols) * panel.size;
 //		randomY = rand.nextInt(panel.rows) * panel.size;
-		x = rand.nextInt(4) * panel.size;
-		y = rand.nextInt(4) * panel.size;
+		x = rand.nextInt(16) * panel.size;
+		y = rand.nextInt(16) * panel.size;
 		drawX = x + (panel.size) / 4;
 		drawY = y + (panel.size) / 4;
 	}

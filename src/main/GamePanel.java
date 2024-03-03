@@ -21,7 +21,6 @@ public class GamePanel extends JPanel implements Runnable {
 	KeyHandler key = new KeyHandler();
 	JButton button;
 	JPanel titleScreen = new JPanel();
-	JPanel greyTint = new JPanel();
 	Font font = new Font("Arial", Font.BOLD, 15);
 	public final int size = 42;
 	public final int rows = 16;
@@ -37,28 +36,6 @@ public class GamePanel extends JPanel implements Runnable {
 		this.setFocusable(true);
 		this.addKeyListener(key);
 
-		// Starting Title Screen to start game as well
-		titleScreen.setBackground(Color.GRAY);
-		titleScreen.setBounds((screenSize / 2) - (size * 4) / 2, (screenSize / 2) - (size * 3), size * 4, size * 2);
-		// 10 --> 5, 4
-		button = new JButton("Start Game");
-		button.setBackground(Color.GRAY);
-		button.setBounds((screenSize / 2) - (size * 4) / 2, (screenSize / 2) - (size * 1), size * 4, size * 1);
-		button.setFont(font);
-
-		button.addActionListener(e -> {
-			gameStatus = true;
-			titleScreen.setVisible(false);
-			greyTint.setVisible(false);
-			// Starts Game
-			thread = new Thread(this);
-			thread.start();
-		});
-
-		titleScreen.add(button);
-		titleScreen.setVisible(true);
-		this.add(titleScreen);
-
 		// Score
 		scoreLabel.setBounds((screenSize / 2) - (size * 2) / 2, 0, size * 2, size * 1);
 		scoreLabel.setFont(font);
@@ -70,11 +47,46 @@ public class GamePanel extends JPanel implements Runnable {
 		interactions = new Interactions(this, snake, food);
 
 		updateScore();
+		this.setVisible(true);
 
-		greyTint.setBackground(new Color(128, 128, 128, 50));
-		greyTint.setBounds(0, 0, screenSize, screenSize);
-		greyTint.setVisible(true);
+	}
+
+	public void secondScreen() {
+		Font font = new Font("Arial", Font.BOLD, 15);
+		JPanel loseScreen = new JPanel();
+		JPanel titleScreen = new JPanel();
+		JPanel greyTint = new JPanel();
+		JButton button = new JButton("Start Game");
+
+		titleScreen.setVisible(false);
+		loseScreen.setVisible(false);
+		greyTint.setVisible(false);
+
+		loseScreen.setPreferredSize(new Dimension(screenSize, screenSize));
+		loseScreen.setBackground(Color.white);
+
+		titleScreen.setPreferredSize(new Dimension(screenSize, screenSize));
+		titleScreen.setBackground(Color.GRAY);
+		// Starting Title Screen to start game as well
+		titleScreen.setBackground(Color.GRAY);
+		// 10 --> 5, 4
+		button.setBackground(Color.GRAY);
+		button.setFont(font);
+
+		button.addActionListener(e -> {
+			// Starts Game
+			titleScreen.setVisible(false);
+			this.setVisible(false);
+			startGame();
+		});
+
+		loseScreen.setPreferredSize(new Dimension(screenSize, screenSize));
+		greyTint.setPreferredSize(new Dimension(screenSize, screenSize));
+
+		titleScreen.add(button);
 		this.add(greyTint);
+		this.add(loseScreen);
+		this.add(titleScreen);
 	}
 
 	@Override
@@ -83,11 +95,24 @@ public class GamePanel extends JPanel implements Runnable {
 			try {
 				Thread.sleep(500);
 				update();
+				loseCondition();
 				repaint();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public void loseCondition() {
+		if (snake.getX() < 0 || snake.getX() > screenSize || snake.getY() < 0 || snake.getY() > screenSize) {
+
+		}
+	}
+
+	public void startGame() {
+		gameStatus = true;
+		thread = new Thread(this);
+		thread.start();
 	}
 
 	public void update() {
